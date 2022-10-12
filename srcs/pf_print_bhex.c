@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_printHex.c                                      :+:      :+:    :+:   */
+/*   pf_print_bhex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 19:57:32 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/07 20:35:25 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/11 21:51:03 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
 
-void    printHex(unsigned long long n)
+unsigned int	print_bhex(unsigned long n)
 {
-        char    r;
+	char			r;
+	unsigned int	m;
 
-        if (n <= 16)
-                (n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('a' + n - 10, 1));
-        else
-        {
-                r = n % 16;
-                printHex(n / 16);
-                (r < 10) ? (ft_putchar_fd('0' + r, 1)) : (ft_putchar_fd('a' + r - 10, 1));
-        }
-        return ;
+	m = 0;
+	if (n < 16)
+	{
+		(n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('A' + n - 10, 1));
+		m++;
+	}
+	else
+	{
+		r = n % 16;
+		m += print_bhex(n / 16);
+		if (r < 10)
+			ft_putchar_fd(r + '0', 1);
+		else
+			ft_putchar_fd(r - 10 + 'A', 1);
+		m++;
+	}
+	return (m);
 }
 
-void    pf_printHex(unsigned long long n)
+unsigned int pf_print_bhex(unsigned long *n)
 {
-        ft_putstr_fd("0x", 1);
-        printHex(n);
-        return ;
+	return (print_bhex(*n));
 }

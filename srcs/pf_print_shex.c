@@ -1,22 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_printptr.c                                      :+:      :+:    :+:   */
+/*   pf_print_shex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 19:57:27 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/11 21:49:15 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/09 21:14:27 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/11 21:51:12 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
-#include <inttypes.h>
 
-unsigned int pf_printptr(void *ptr)
+unsigned int	print_shex(unsigned long n)
 {
-        uintptr_t       n;
-        n = (uintptr_t)ptr;
-        ft_putstr_fd("0x", 1);
-        return (2 + pf_print_shex(&n));
+	char			r;
+	unsigned int	m;
+
+	m = 0;
+	if (n < 16)
+	{
+		(n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('a' + n - 10, 1));
+		m++;
+	}
+	else
+	{
+		r = n % 16;
+		m += print_shex(n / 16);
+		if (r < 10)
+			ft_putchar_fd(r + '0', 1);
+		else
+			ft_putchar_fd(r - 10 + 'a', 1);
+		m++;
+	}
+	return (m);
+}
+
+unsigned int	pf_print_shex(unsigned long *n)
+{
+	return (print_shex(*n));
 }

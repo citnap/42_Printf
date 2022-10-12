@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   pf_putuint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 00:29:43 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/12 00:47:50 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/10 21:42:27 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/11 14:57:20 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libftprintf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+unsigned int	pf_putuint(unsigned int *n)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst -> next;
-	return (lst);
+	unsigned int	m;
+
+	m = 0;
+	if (*n < 10)
+	{
+		ft_putchar_fd(*n + '0', 1);
+		m++;
+	}
+	else
+	{
+		unsigned int	tmp;
+		tmp = *n / 10;
+		m += pf_putuint(&tmp);
+		ft_putchar_fd(*n % 10 + '0', 1);
+		m++;
+	}
+	return (m);
 }

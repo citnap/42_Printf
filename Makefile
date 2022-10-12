@@ -6,15 +6,34 @@
 #    By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 19:57:49 by ppanpais          #+#    #+#              #
-#    Updated: 2022/10/07 20:35:18 by ppanpais         ###   ########.fr        #
+#    Updated: 2022/10/11 21:54:45 by ppanpais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
 SRC_PATH	=	srcs/
-SRC_FILES	=	pf_printHex.c pf_printptr.c
+SRC_FILES	=	pf_get_data.c pf_print_bhex.c pf_print_data.c pf_printptr.c \
+				pf_print_shex.c pf_putchar.c pf_putnbr.c pf_putstr.c \
+				pf_putuint.c
+SRCS		=	$(foreach f, $(SRC_FILES), $(SRC_PATH)$(f)) ft_printf.c
 LIBFT		=	libft.a
-OBJS_PATH	=	objs/
-OBJS		=	
-all:	$(NAME)
-$(NAME):	
+LIBFT_PATH	=	libft/
+OBJ_PATH	=	objs/
+OBJ_FILES	=	$(SRC_FILES:.c=.o) ft_printf.o
+OBJS		=	$(foreach f, $(OBJ_FILES), $(OBJ_PATH)$(f))
+CC		=	gcc
+CFLAGS		=	-g -c -Wall -Werror -Wextra
+
+all:		$(NAME)
+$(NAME):	$(OBJS) $(LIBFT)
+			cp $(LIBFT_PATH)$(LIBFT) $(NAME)
+			ar -rcs $(NAME) $(OBJS)
+$(OBJS):	$(SRCS)
+		$(CC) $(CFLAGS) $< -o $@
+$(LIBFT):
+			make -C libft/ bonus
+clean:
+			rm -f $(OBJS)
+fclean: 	clean
+			rm -f $(NAME)
+re:		fclean all

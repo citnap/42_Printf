@@ -1,22 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   pf_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 00:29:43 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/12 00:47:50 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/11 15:13:23 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/11 21:30:55 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libftprintf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+unsigned int pf_putnbr(int *n)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst -> next;
-	return (lst);
+	unsigned int len;
+	int		org;
+	int		tmp;
+
+	org = *n;
+	tmp = org;
+	len = 0;
+	if (org < 0)
+	{
+		org = org * -1;
+		len++;
+	}
+	if (org == 0)
+	{
+		ft_putchar_fd('0', 1);
+		return (1);
+	}
+	while (org > 0)
+	{
+		org = org / 10;
+		len++;
+	}
+	ft_putnbr_fd(tmp, 1);
+	return (len);
+
 }

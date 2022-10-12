@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   pf_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 00:29:43 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/12 00:47:50 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/11 15:08:47 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/11 15:12:03 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libftprintf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+unsigned int pf_putchar(char *c)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst -> next;
-	return (lst);
+	ft_putchar_fd(*c, 1);
+	return (1);
 }
