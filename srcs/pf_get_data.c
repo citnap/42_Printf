@@ -6,7 +6,7 @@
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 20:50:07 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/11 21:50:00 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:49:24 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,30 @@ t_list	**pf_get_data(const char *fmt, va_list arg)
 	t_list	**data;
 	char	*front;
 	char	*back;
+	char	*type;
 
 	front = (char *)fmt;
 	back = (char *)fmt;
 	data = (t_list **)malloc(sizeof(t_list *));
+	*data = NULL;
 	while (*front)
 	{
 		if (*front == '%' && front != back && front[1])
 			ft_lstadd_back(data, ft_lstnew(ft_substr(fmt, back - fmt, front - back), "str"));
 		if (*front == '%')
 		{
-			ft_lstadd_back(data, make_data(arg, check_type(front + 1)));
-			if (front[2])
+			type = check_type(front + 1);
+			if (type)
+			{
+				ft_lstadd_back(data, make_data(arg, type));
 				back = front + 2;
+			}			
 			front++;
 		}
 		front++;
 	}
 	if (front != back)
 		ft_lstadd_back(data, ft_lstnew(ft_substr(fmt, back - fmt, front - back), "str"));
+	free((void *)fmt);
 	return (data);
 }

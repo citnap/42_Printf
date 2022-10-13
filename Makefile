@@ -19,8 +19,8 @@ SRCS		=	$(foreach f, $(SRC_FILES), $(SRC_PATH)$(f)) ft_printf.c
 LIBFT		=	libft.a
 LIBFT_PATH	=	libft/
 OBJ_PATH	=	objs/
-OBJ_FILES	=	$(SRC_FILES:.c=.o) ft_printf.o
-OBJS		=	$(foreach f, $(OBJ_FILES), $(OBJ_PATH)$(f))
+OBJS		=	$(SRC_FILES:.c=.o) ft_printf.o
+//OBJS		=	$(foreach f, $(OBJ_FILES), $(OBJ_PATH)$(f))
 CC		=	gcc
 CFLAGS		=	-g -c -Wall -Werror -Wextra
 
@@ -29,7 +29,7 @@ $(NAME):	$(OBJS) $(LIBFT)
 			cp $(LIBFT_PATH)$(LIBFT) $(NAME)
 			ar -rcs $(NAME) $(OBJS)
 $(OBJS):	$(SRCS)
-		$(CC) $(CFLAGS) $< -o $@
+			$(CC) $(CFLAGS) $(SRCS)
 $(LIBFT):
 			make -C libft/ bonus
 clean:
