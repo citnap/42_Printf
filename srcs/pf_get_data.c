@@ -6,7 +6,7 @@
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 20:50:07 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/13 15:49:24 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:52:52 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,51 +64,45 @@ t_list	*make_data(va_list arg, char *data_type)
 	else if (ft_strncmp(data_type, "%", 2) == 0)
 	{
 		content = malloc(sizeof(char));
-		*(int *)content = (int)'%';
+		*(char *)content = '%';
 	}
 	else if (ft_strncmp(data_type, "str", 4) == 0)
-		content = ft_strdup(va_arg(arg, char *));
+		content = pf_get_str(arg);
 	else if (ft_strncmp(data_type, "ptr", 4) == 0)
 		content = va_arg(arg, void *);
 	else if (is_uint(data_type))
 	{
 		content = malloc(sizeof(unsigned int));
-		*(unsigned int *)content = va_arg(arg, unsigned int);
+		*((unsigned int *)content) = va_arg(arg, unsigned int);
 	}
 	else
 		return (NULL);
 	return (ft_lstnew(content, data_type));
 }
 
-t_list	**pf_get_data(const char *fmt, va_list arg)
+t_list	**pf_get_data(char *fmt, va_list arg)
 {
 	t_list	**data;
-	char	*front;
 	char	*back;
 	char	*type;
 
-	front = (char *)fmt;
 	back = (char *)fmt;
 	data = (t_list **)malloc(sizeof(t_list *));
 	*data = NULL;
-	while (*front)
+	while (*fmt)
 	{
-		if (*front == '%' && front != back && front[1])
-			ft_lstadd_back(data, ft_lstnew(ft_substr(fmt, back - fmt, front - back), "str"));
-		if (*front == '%')
+		if (*fmt == '%' && fmt != back && fmt[1])
+			ft_lstadd_back(data, pf_getdata_str(back, fmt));
+		if (*fmt == '%')
 		{
-			type = check_type(front + 1);
+			type = check_type(++fmt);
 			if (type)
-			{
 				ft_lstadd_back(data, make_data(arg, type));
-				back = front + 2;
-			}			
-			front++;
+			back = fmt + 1;			
 		}
-		front++;
+		fmt++;
 	}
-	if (front != back)
-		ft_lstadd_back(data, ft_lstnew(ft_substr(fmt, back - fmt, front - back), "str"));
-	free((void *)fmt);
+	if (fmt != back)
+		ft_lstadd_back(data, pf_getdata_str(back, fmt));
 	return (data);
 }

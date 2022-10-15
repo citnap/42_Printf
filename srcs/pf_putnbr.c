@@ -6,7 +6,7 @@
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:13:23 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/11 21:30:55 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/14 15:26:29 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ unsigned int pf_putnbr(int *n)
 	org = *n;
 	tmp = org;
 	len = 0;
-	if (org < 0)
+	if (org == -2147483648)
+		len = 11;
+	else if (org < 0)
 	{
 		org = org * -1;
 		len++;
 	}
-	if (org == 0)
+	else if (org == 0)
 	{
 		ft_putchar_fd('0', 1);
 		return (1);

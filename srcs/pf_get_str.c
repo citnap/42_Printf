@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_printptr.c                                      :+:      :+:    :+:   */
+/*   pf_get_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 19:57:27 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/14 15:44:59 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/14 17:03:57 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/14 21:48:02 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
-#include <inttypes.h>
 
-unsigned int pf_printptr(void *ptr)
+t_list	*pf_getdata_str(char *start, char *end)
 {
-        if (ptr == NULL)
-                return (pf_putstr("(nil)"));
-        uintptr_t       n;
-        n = (uintptr_t)ptr;
-        ft_putstr_fd("0x", 1);
-        return (2 + pf_print_shex(&n));
+	t_list	*new;
+	char	*str;
+
+	str = ft_substr(start, 0 , end - start);
+	new = ft_lstnew(str, "str");
+	return (new);
+}
+
+char	*pf_get_str(va_list arg)
+{
+	char	*str;
+
+	str = va_arg(arg, char *);
+	if (!str)
+		str = "(null)";
+	return (ft_strdup(str));
 }

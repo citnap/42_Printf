@@ -6,21 +6,29 @@
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 19:57:32 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/11 21:51:03 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/14 02:17:38 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
+void	ft_putchar(int n)
+{
+	char	c;
+
+	c = (char)n;
+	write(1, &c, 1);
+}
 
 unsigned int	print_bhex(unsigned long n)
 {
-	char			r;
+	unsigned int	r;
 	unsigned int	m;
 
+	r = 0;
 	m = 0;
 	if (n < 16)
 	{
-		(n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('A' + n - 10, 1));
+		(n < 10) ? (ft_putchar('0' + n)) : (ft_putchar('A' + n - 10));
 		m++;
 	}
 	else
@@ -28,9 +36,9 @@ unsigned int	print_bhex(unsigned long n)
 		r = n % 16;
 		m += print_bhex(n / 16);
 		if (r < 10)
-			ft_putchar_fd(r + '0', 1);
+			ft_putchar(r + '0');
 		else
-			ft_putchar_fd(r - 10 + 'A', 1);
+			ft_putchar(r - 10 + 'A');
 		m++;
 	}
 	return (m);

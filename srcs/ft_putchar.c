@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_printptr.c                                      :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 19:57:27 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/14 15:44:59 by ppanpais         ###   ########.fr       */
+/*   Created: 2022/10/14 02:14:58 by ppanpais          #+#    #+#             */
+/*   Updated: 2022/10/14 02:15:50 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libftprintf.h"
-#include <inttypes.h>
-
-unsigned int pf_printptr(void *ptr)
+void	ft_putchar(int n)
 {
-        if (ptr == NULL)
-                return (pf_putstr("(nil)"));
-        uintptr_t       n;
-        n = (uintptr_t)ptr;
-        ft_putstr_fd("0x", 1);
-        return (2 + pf_print_shex(&n));
+	char	c;
+
+	c = (char)n;
+	write(1, &c, 1);
 }

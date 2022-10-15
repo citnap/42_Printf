@@ -6,7 +6,7 @@
 /*   By: ppanpais <ppanpais@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 00:39:42 by ppanpais          #+#    #+#             */
-/*   Updated: 2022/10/12 21:40:27 by ppanpais         ###   ########.fr       */
+/*   Updated: 2022/10/14 21:48:36 by ppanpais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	del_lists(t_list **lists)
 		t_list	*tmp;
 
 		tmp = walker->next;
-		if (!(is_equal(walker->type, "ptr") || is_equal(walker->type, "%")))
+		if (!(is_equal(walker->type, "ptr")))
 			free(walker->content);
 		free(walker);
 		walker = tmp;
 	}
-	lists = NULL;
+	free(lists);
 	return ;
 }
 
@@ -59,15 +59,14 @@ int	ft_printf(const char *str, ...)
 
 	ret = 0;
 	va_start(arg, str);
-	words = pf_get_data(ft_strdup(str), arg);
-	if (is_error(words))
-	{
-		del_lists(words);
-		return (-1);
-	}
+	words = pf_get_data((char *)str, arg);
+	// if (is_error(words))
+	// {
+	// 	del_lists(words);
+	// 	return (-1);
+	// }
 	ret = pf_print_data(words);
 	va_end(arg);
 	del_lists(words);
-	free(words);
 	return (ret);
 }
