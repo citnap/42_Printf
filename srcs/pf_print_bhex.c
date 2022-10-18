@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
+
 void	ft_putchar(int n)
 {
 	char	c;
@@ -28,7 +29,10 @@ unsigned int	print_bhex(unsigned long n)
 	m = 0;
 	if (n < 16)
 	{
-		(n < 10) ? (ft_putchar('0' + n)) : (ft_putchar('A' + n - 10));
+		if (n < 10)
+			ft_putchar('0' + n);
+		else
+			ft_putchar('A' + n - 10);
 		m++;
 	}
 	else
@@ -44,7 +48,7 @@ unsigned int	print_bhex(unsigned long n)
 	return (m);
 }
 
-unsigned int pf_print_bhex(unsigned long *n)
+unsigned int	pf_print_bhex(unsigned long *n)
 {
 	return (print_bhex(*n));
 }

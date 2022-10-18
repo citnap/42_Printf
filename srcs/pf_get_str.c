@@ -17,7 +17,7 @@ t_list	*pf_getdata_str(char *start, char *end)
 	t_list	*new;
 	char	*str;
 
-	str = ft_substr(start, 0 , end - start);
+	str = ft_substr(start, 0, end - start);
 	new = ft_lstnew(str, "str");
 	return (new);
 }

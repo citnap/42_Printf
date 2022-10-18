@@ -13,12 +13,13 @@
 #include "../libftprintf.h"
 #include <inttypes.h>
 
-unsigned int pf_printptr(void *ptr)
+unsigned int	pf_printptr(void *ptr)
 {
-        if (ptr == NULL)
-                return (pf_putstr("(nil)"));
-        uintptr_t       n;
-        n = (uintptr_t)ptr;
-        ft_putstr_fd("0x", 1);
-        return (2 + pf_print_shex(&n));
+	uintptr_t	n;
+
+	if (ptr == NULL)
+		return (pf_putstr("(nil)"));
+	n = (uintptr_t)ptr;
+	ft_putstr_fd("0x", 1);
+	return (2 + pf_print_shex(&n));
 }

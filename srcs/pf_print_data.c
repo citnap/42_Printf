@@ -11,24 +11,15 @@
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
-typedef unsigned long long myptr_type;
 
-int	pf_print_data(t_list **data)
+unsigned int	looploop(t_list *message, unsigned int total)
 {
-	t_list		*message;
-	unsigned int	total;
-
-	total = 0;
-	message = *data;
 	while (message)
 	{
 		if (ft_strncmp(message->type, "char", 5) == 0)
 			total += pf_putchar(message->content);
-		else if(ft_strncmp(message->type, "%", 2) == 0)
-		{
-			ft_putchar_fd('%', 1);
-			total++;
-		}
+		else if (ft_strncmp(message->type, "%", 2) == 0)
+			total += pf_putchar("%");
 		else if (ft_strncmp(message->type, "hex", 4) == 0)
 			total += pf_putuint(message->content, 2);
 		else if (ft_strncmp(message->type, "HEX", 4) == 0)
@@ -44,4 +35,14 @@ int	pf_print_data(t_list **data)
 		message = message->next;
 	}
 	return (total);
+}
+
+int	pf_print_data(t_list **data)
+{
+	t_list			*message;
+	unsigned int	total;
+
+	total = 0;
+	message = *data;
+	return (looploop(message, total));
 }

@@ -12,7 +12,7 @@
 
 #include "../libftprintf.h"
 
-unsigned int pf_putchar(char *c)
+unsigned int	pf_putchar(char *c)
 {
 	ft_putchar_fd(*c, 1);
 	return (1);

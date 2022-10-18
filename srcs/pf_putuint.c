@@ -20,7 +20,10 @@ static unsigned int	print_shex(unsigned int n)
 	m = 0;
 	if (n < 16)
 	{
-		(n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('a' + n - 10, 1));
+		if (n < 10)
+			ft_putchar_fd('0' + n, 1);
+		else
+			ft_putchar_fd('a' + n - 10, 1);
 		m++;
 	}
 	else
@@ -45,7 +48,10 @@ static unsigned int	print_bhex(unsigned int n)
 	m = 0;
 	if (n < 16)
 	{
-		(n < 10) ? (ft_putchar_fd('0' + n, 1)) : (ft_putchar_fd('A' + n - 10, 1));
+		if (n < 10)
+			ft_putchar_fd('0' + n, 1);
+		else
+			ft_putchar_fd('A' + n - 10, 1);
 		m++;
 	}
 	else
@@ -64,6 +70,7 @@ static unsigned int	print_bhex(unsigned int n)
 unsigned int	pf_putuint(unsigned int *n, int mode)
 {
 	unsigned int	m;
+	unsigned int	tmp;
 
 	if (mode == 1)
 		return (print_bhex(*n));
@@ -77,7 +84,6 @@ unsigned int	pf_putuint(unsigned int *n, int mode)
 	}
 	else
 	{
-		unsigned int	tmp;
 		tmp = *n / 10;
 		m += pf_putuint(&tmp, 0);
 		ft_putchar_fd(*n % 10 + '0', 1);

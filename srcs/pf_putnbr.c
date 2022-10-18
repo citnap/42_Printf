@@ -12,11 +12,26 @@
 
 #include "../libftprintf.h"
 
-unsigned int pf_putnbr(int *n)
+unsigned int	lenlen(int n)
 {
-	unsigned int len;
-	int		org;
-	int		tmp;
+	unsigned int	l;
+
+	l = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n /= 10;
+		l++;
+	}
+	return (l);
+}
+
+unsigned int	pf_putnbr(int *n)
+{
+	unsigned int	len;
+	int				org;
+	int				tmp;
 
 	org = *n;
 	tmp = org;
@@ -28,17 +43,7 @@ unsigned int pf_putnbr(int *n)
 		org = org * -1;
 		len++;
 	}
-	else if (org == 0)
-	{
-		ft_putchar_fd('0', 1);
-		return (1);
-	}
-	while (org > 0)
-	{
-		org = org / 10;
-		len++;
-	}
+	len += lenlen(org);
 	ft_putnbr_fd(tmp, 1);
 	return (len);
-
 }

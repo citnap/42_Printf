@@ -32,6 +32,7 @@ char	*check_type(char *label)
 		return ("%");
 	return (NULL);
 }
+
 int	is_int(char *type)
 {
 	if (ft_strncmp(type, "int", 4) == 0)
@@ -98,7 +99,7 @@ t_list	**pf_get_data(char *fmt, va_list arg)
 			type = check_type(++fmt);
 			if (type)
 				ft_lstadd_back(data, make_data(arg, type));
-			back = fmt + 1;			
+			back = fmt + 1;
 		}
 		fmt++;
 	}

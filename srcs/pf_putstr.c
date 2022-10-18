@@ -12,7 +12,7 @@
 
 #include "../libftprintf.h"
 
-unsigned int pf_putstr(char *c)
+unsigned int	pf_putstr(char *c)
 {
 	unsigned int	n;
 
